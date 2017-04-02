@@ -1,6 +1,6 @@
 {
   "name": "smc-webfonts",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Webfonts created from the open source TTF fonts at SMC",
   "repository": {
     "type": "git",
