@@ -1,0 +1,21 @@
+{
+  "name": "smc-webfonts",
+  "version": "0.0.0",
+  "description": "Webfonts created from the open source TTF fonts at SMC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kollavarsham/smc-webfonts.git"
+  },
+  "keywords": [
+    "SMC",
+    "Webfonts",
+    "Malayalam",
+    "SMC"
+  ],
+  "author": "The Kollavarsham Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kollavarsham/smc-webfonts/issues"
+  },
+  "homepage": "https://kollavarsham.org/smc-webfonts/"
+}
