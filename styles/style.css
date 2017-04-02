@@ -28,6 +28,15 @@ h1 > span {
   background-color : #ddd;
 }
 
+.github {
+  display : inline-block;
+  float   : right;
+}
+
+.github a {
+  color : #555;
+}
+
 .page {
   position : relative;
   border   : 1px solid #cccccc;
