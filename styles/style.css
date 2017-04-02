@@ -1,0 +1,217 @@
+/* common styles */
+body {
+  font-family : 'Roboto', sans-serif;
+}
+
+h1 {
+  font-size : 32px;
+  padding   : 10px;
+  position  : relative;
+}
+
+h1 > span {
+  border-bottom : 1px dotted #090b74;
+}
+
+#open-switcher {
+  position         : relative;
+  display          : inline-block;
+  font-size        : 18px;
+  padding          : 5px 20px;
+  border           : 1px dotted #ddd;
+  background-color : #eee;
+  cursor           : pointer;
+}
+
+#open-switcher:hover, #close-switcher:hover, .switcher-font:hover, .tab-head:hover, .tab-head.active:hover {
+  border           : 1px dotted #f00;
+  background-color : #ddd;
+}
+
+.page {
+  position : relative;
+  border   : 1px solid #cccccc;
+  margin   : 10px;
+  padding  : 20px;
+  overflow : hidden;
+}
+
+#switcher {
+  font-size : 18px;
+  margin    : 5px 15px;
+  padding   : 5px;
+  border    : 2px solid #999999;
+  display   : none;
+  position  : relative;
+}
+
+#close-switcher {
+  display          : inline-block;
+  position         : absolute;
+  top              : 3px;
+  right            : 3px;
+  padding          : 5px;
+  border           : 1px dotted #ddd;
+  background-color : #eee;
+  cursor           : pointer;
+}
+
+.switcher-font {
+  display : inline-block;
+  padding : 5px;
+  border  : 1px dotted #ddd;
+  margin  : 5px;
+  cursor  : pointer;
+}
+
+.switcher-font.active {
+  border           : 1px solid #00f;
+  background-color : #eee;
+}
+
+.en, .ml {
+  display : none;
+}
+
+.tab-container {
+  border-top : none;
+}
+
+.tab-head-container {
+  display         : flex;
+  flex-direction  : row;
+  justify-content : center;
+  align-items     : stretch;
+}
+
+.tab-head {
+  flex             : 0.5;
+  display          : inline-flex;
+  padding          : 10px;
+  border           : 1px solid #999;
+  background-color : #eee;
+  cursor           : pointer;
+}
+
+.tab-head.active {
+  border-bottom         : none;
+  border-top            : 1px dotted #999;
+  border-right          : 1px dotted #999;
+  border-left           : 1px dotted #999;
+  text-decoration-color : black;
+  text-decoration       : solid;
+  text-decoration-line  : underline;
+  background-color      : #fff;
+}
+
+.font-container {
+  overflow-x  : auto;
+  overflow-y  : hidden;
+  line-height : 1.3;
+  white-space : nowrap;
+  padding     : 5px 10px;
+  border      : 1px dotted #999;
+  border-top  : none;
+}
+
+h2 {
+  background : #c1e0c1;
+  font-size  : 24px;
+  color      : #090b74;
+  padding    : 10px;
+}
+
+.letters {
+  font-size     : 25px;
+  margin-bottom : 20px;
+}
+
+.s10:before {
+  content : '10px';
+}
+
+.s11:before {
+  content : '11px';
+}
+
+.s12:before {
+  content : '12px';
+}
+
+.s14:before {
+  content : '14px';
+}
+
+.s18:before {
+  content : '18px';
+}
+
+.s24:before {
+  content : '24px';
+}
+
+.s30:before {
+  content : '30px';
+}
+
+.s36:before {
+  content : '36px';
+}
+
+.s48:before {
+  content : '48px';
+}
+
+.s60:before {
+  content : '60px';
+}
+
+.s72:before {
+  content : '72px';
+}
+
+.s10:before, .s11:before, .s12:before, .s14:before,
+.s18:before, .s24:before, .s30:before, .s36:before,
+.s48:before, .s60:before, .s72:before {
+  font-family   : Arial, sans-serif;
+  font-size     : 10px;
+  font-weight   : normal;
+  font-style    : normal;
+  color         : #999;
+  padding-right : 6px;
+}
+
+pre {
+  display          : block;
+  position         : relative;
+  padding          : 9px;
+  margin           : 0 0 10px;
+  font-family      : Monaco, Menlo, Consolas, "Courier New", monospace !important;
+  font-size        : 13px;
+  line-height      : 1.428571429;
+  color            : #333;
+  font-weight      : normal !important;
+  font-style       : normal !important;
+  background-color : #f5f5f5;
+  border           : 1px solid #ccc;
+  overflow-x       : auto;
+  border-radius    : 4px;
+}
+
+pre:after {
+  display          : block;
+  position         : absolute;
+  right            : 0;
+  top              : 0;
+  content          : 'Usage';
+  line-height      : 1;
+  padding          : 5px 8px;
+  font-size        : 12px;
+  color            : #767676;
+  background-color : #fff;
+  border           : 1px solid #ccc;
+  border-right     : none;
+  border-top       : none;
+  border-radius    : 0 4px 0 4px;
+  z-index          : 10;
+}
