@@ -4,8 +4,8 @@ body {
 }
 
 h1 {
-  font-size : 32px;
-  padding   : 10px;
+  font-size : 28px;
+  padding   : 10px 10px 0;
   position  : relative;
 }
 
@@ -13,9 +13,14 @@ h1 > span {
   border-bottom : 1px dotted #090b74;
 }
 
+#switcher-container {
+  position : relative;
+  display  : inline-block;
+  z-index  : 100;
+}
+
 #open-switcher {
   position         : relative;
-  display          : inline-block;
   font-size        : 18px;
   padding          : 5px 20px;
   border           : 1px dotted #ddd;
@@ -23,8 +28,8 @@ h1 > span {
   cursor           : pointer;
 }
 
-#open-switcher:hover, #close-switcher:hover, .switcher-font:hover, .tab-head:hover, .tab-head.active:hover {
-  border           : 1px dotted #f00;
+#open-switcher:hover, #close-switcher:hover, .switcher-font:hover, .tab-head:hover {
+  border           : 1px dotted #f90;
   background-color : #ddd;
 }
 
@@ -41,36 +46,38 @@ h1 > span {
   position : relative;
   border   : 1px solid #cccccc;
   margin   : 10px;
-  padding  : 20px;
+  padding  : 10px;
   overflow : hidden;
 }
 
 #switcher {
-  font-size : 18px;
-  margin    : 5px 15px;
-  padding   : 5px;
-  border    : 2px solid #999999;
-  display   : none;
-  position  : relative;
+  font-size        : 16px;
+  margin           : 5px 0;
+  padding          : 5px;
+  border           : 1px solid #999999;
+  background-color : #fff;
+  display          : none;
+  position         : absolute;
 }
 
 #close-switcher {
+  font-size        : smaller;
   display          : inline-block;
   position         : absolute;
   top              : 3px;
   right            : 3px;
-  padding          : 5px;
-  border           : 1px dotted #ddd;
+  padding          : 5px 8px;
+  border           : 1px solid #000;
   background-color : #eee;
   cursor           : pointer;
 }
 
 .switcher-font {
-  display : inline-block;
-  padding : 5px;
-  border  : 1px dotted #ddd;
-  margin  : 5px;
-  cursor  : pointer;
+  padding     : 5px;
+  border      : 1px dotted #666;
+  margin      : 5px;
+  white-space : nowrap;
+  cursor      : pointer;
 }
 
 .switcher-font.active {
@@ -78,12 +85,23 @@ h1 > span {
   background-color : #eee;
 }
 
+h2 {
+  background : #262cff;
+  color      : #ffff09;
+  font-size  : 32px;
+  margin     : 0 0 15px;
+  padding    : 10px;
+  position   : relative;
+}
+
 .en, .ml {
   display : none;
 }
 
 .tab-container {
-  border-top : none;
+  border-top    : none;
+  margin        : 0 0 10px;
+  border-radius : 4px;
 }
 
 .tab-head-container {
@@ -94,12 +112,15 @@ h1 > span {
 }
 
 .tab-head {
+  font-size        : 22px;
   flex             : 0.5;
   display          : inline-flex;
   padding          : 10px;
   border           : 1px solid #999;
   background-color : #eee;
+  color            : #555555;
   cursor           : pointer;
+  text-decoration  : underline;
 }
 
 .tab-head.active {
@@ -111,6 +132,11 @@ h1 > span {
   text-decoration       : solid;
   text-decoration-line  : underline;
   background-color      : #fff;
+  cursor                : default;
+}
+
+.tab-head:hover, .tab-head.active:hover {
+  border-bottom-color : transparent;
 }
 
 .font-container {
@@ -123,7 +149,7 @@ h1 > span {
   border-top  : none;
 }
 
-h2 {
+h3 {
   background : #c1e0c1;
   font-size  : 24px;
   color      : #090b74;
@@ -205,22 +231,4 @@ pre {
   border           : 1px solid #ccc;
   overflow-x       : auto;
   border-radius    : 4px;
-}
-
-pre:after {
-  display          : block;
-  position         : absolute;
-  right            : 0;
-  top              : 0;
-  content          : 'Usage';
-  line-height      : 1;
-  padding          : 5px 8px;
-  font-size        : 12px;
-  color            : #767676;
-  background-color : #fff;
-  border           : 1px solid #ccc;
-  border-right     : none;
-  border-top       : none;
-  border-radius    : 0 4px 0 4px;
-  z-index          : 10;
 }

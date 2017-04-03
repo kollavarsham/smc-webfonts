@@ -9,27 +9,33 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  <link href="webfonts.css" rel="stylesheet">
+  <link href="smc-webfonts.css" rel="stylesheet">
   <link href="styles/reset.css" rel="stylesheet">
   <link href="styles/style.css" rel="stylesheet">
 </head>
 <body>
   <h1>
     <span>SMC Malayalam Webfonts</span>
-    <div id="open-switcher">Change Font</div>
+    <div id="switcher-container">
+      <div id="open-switcher">Change Font</div>
+      <div id="switcher">
+        <div title="Close" id="close-switcher">X</div>
+      </div>
+    </div>
     <div class="github">
       <a title="Fork me on GitHub" href="https://github.com/kollavarsham/smc-webfonts">
         <i class="fa fa-github fa-lg" aria-hidden="true"></i>
       </a>
     </div>
-    <div id="switcher">
-      <div title="Close" id="close-switcher">X</div>
-    </div>
   </h1>
   <div class="page">
     <div class="demo">
       <h2 id="font-name"></h2>
+      <h3>Usage</h3>
       <pre id="usage"></pre>
+      <h3>Live Demo (on JSFiddle)</h3>
+      <div id="jsFiddle-container"></div>
+      <h3>Static Preview</h3>
       <div class="tab-container">
         <div class="tab-head-container">
           <div id="ml" class="tab-head">മലയാളം</div>
@@ -38,7 +44,7 @@
         <div class="font-container">
           <div class="tab ml">
             <p class="letters">
-              <br/> അ ആ ഇ ഈ ഉ ഊ ഋ ഌ എ ഏ ഐ ഒ ഓ ഔ ം ഃ
+              അ ആ ഇ ഈ ഉ ഊ ഋ ഌ എ ഏ ഐ ഒ ഓ ഔ ം ഃ
               <br/> ക ഖ ഗ ഘ ങ ച ഛ ജ ഝ ഞ ട ഠ ഡ ഢ ണ ത ഥ ദ ധ ന പ ഫ ബ ഭ മ
               <br/> യ ര ല വ ശ ഷ സ ഹ ള ഴ റ ഩ
               <br/> ഽ ാ ി ീ ു ൂ ൃ ൄ െ േ ൈ ൊ ോ ൌ ്
@@ -60,7 +66,7 @@
           </div>
           <div class="tab en">
             <p class="letters">
-              <br/>a b c d e f g h i j k l m n o p q r s t u v w x y z
+              a b c d e f g h i j k l m n o p q r s t u v w x y z
               <br/>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
               <br/>0 1 2 3 4 5 6 7 8 9 . : , ; ( ) * ! ? ' @ # < > $ % & ^ + - = ~
             </p>
