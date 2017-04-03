@@ -155,6 +155,8 @@
 
       jsFiddleContainer.appendChild(jsFiddle);
 
+      document.title = 'SMC Malayalam Webfonts - ' + normalizedName;
+
       closeSwitcher.onclick.call(closeSwitcher);
     };
     switcher.appendChild(fontElement);
