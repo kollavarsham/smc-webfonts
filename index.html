@@ -17,12 +17,15 @@
   <h1>
     <span>SMC Malayalam Webfonts</span>
     <div id="switcher-container">
-      <div id="open-switcher">Change Font</div>
+      <div id="open-switcher"><a href="javascript:;">Change Font</a></div>
       <div id="switcher">
         <div title="Close" id="close-switcher">X</div>
       </div>
     </div>
-    <div class="sharethis-inline-share-buttons" style="display:inline-block;float:right;margin-left:10px;"></div>
+    <div class="sharethis-inline-share-buttons" style="display:inline-block;float:right;margin:0 10px;"></div>
+    <!-- @formatter:off -->
+    <div id="bookmarklet">Bookmarklet to preview on your site: <a href="javascript:var fonts=[{name:'meera',font:'Meera'},{name:'rachana',font:'Rachana'},{name:'dyuthi',font:'Dyuthi'},{name:'raghumalayalam',font:'RaghuMalayalam'},{name:'chilanka',font:'Chilanka'},{name:'keraleeyam',font:'Keraleeyam'},{name:'manjari',font:'Manjari'},{name:'suruma',font:'Suruma'},{name:'uroob',font:'Uroob'},{name:'karumbi',font:'Karumbi'},{name:'anjali',font:'AnjaliOldLipi'}],setFonts=function(){return function(a){if(a){var b=fonts.filter(function(b){return b.font===a});if(1!==b.length)return alert('Incorrect font name!');var c=b[0],d=document.getElementsByTagName('head')[0],e=document.createElement('link');e.setAttribute('rel','stylesheet'),e.setAttribute('type','text/css'),e.href='//cdn.jsdelivr.net/smc-webfonts/0.0.1/fonts/'+c.name+'.min.css',d.appendChild(e);(function(a,b){'undefined'==typeof getComputedStyle&&(getComputedStyle=function(a){return a.currentStyle});for(var c,d,e,f={},g=document.body.getElementsByTagName('*'),h=g.length,i=0;i<h;i++)d=g[i],d.style&&(e='#'+(d.id||d.nodeName+'('+i+')'),(c=d.style.fontFamily||getComputedStyle(d,'')[a])&&-1===c.indexOf('FontAwesome')&&-1===c.indexOf(b)&&(d.style.fontFamily=b+','+c,f[c]||(f[c]=[]),f[c].push(e)));return f})('fontFamily',c.font)}}}(),fontNames=fonts.map(function(a){return a.font}).sort();setFonts(prompt('Type in a font name from the below list:\n\n'+fontNames.join(', '))),function(a,b,c,d,e,f,g){a.GoogleAnalyticsObject=e,a[e]=a[e]||function(){(a[e].q=a[e].q||[]).push(arguments)},a[e].l=1*new Date,f=b.createElement(c),g=b.getElementsByTagName(c)[0],f.async=1,f.src=d,g.parentNode.insertBefore(f,g)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-4869398-10','auto'),ga('send','pageview');">SMC-Fontify</a></div>
+    <!-- @formatter:on -->
     <div class="github">
       <a title="Fork me on GitHub" href="https://github.com/kollavarsham/smc-webfonts">
         <i class="fa fa-github fa-lg" aria-hidden="true"></i>
