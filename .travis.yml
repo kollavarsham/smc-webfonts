@@ -5,9 +5,11 @@ branches:
 node_js:
   - 7
 before_script:
-  - git config --global user.name "KOLLAVARSHAM BOT (via Travis CI)"
+  - git config credential.helper "store --file=.git/kv-credentials"
+  - echo "https://${GH_TOKEN}:@github.com" > .git/kv-credentials
+  - git config --global user.name "Kollavarsham Admin" (via Travis CI)"
   - git config --global user.email "info@kollavarsham.org"
 script:
-  - git checkout gh-pages
+  - git checkout origin/gh-pages
   - git merge master
-  - git push https://${GH_TOKEN}:github.com/kollavarsham/smc-webfonts.git gh-pages 
+  - git push origin gh-pages 
