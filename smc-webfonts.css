@@ -7,6 +7,7 @@
 		url('fonts/AnjaliOldLipi/AnjaliOldLipi.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+0D01-0D7F, U+200C-200D, U+25CC;
 }
 
 @font-face {
@@ -18,6 +19,7 @@
 		url('fonts/Chilanka/Chilanka-Regular.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+0D01-0D7F, U+200C-200D, U+25CC;
 }
 
 @font-face {
@@ -29,6 +31,7 @@
 		url('fonts/Dyuthi/Dyuthi.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+0D01-0D7F, U+200C-200D, U+25CC;
 }
 
 @font-face {
@@ -40,6 +43,7 @@
 		url('fonts/Karumbi/Karumbi.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+0D01-0D7F, U+200C-200D, U+25CC;
 }
 
 @font-face {
@@ -51,6 +55,7 @@
 		url('fonts/Keraleeyam/Keraleeyam.ttf') format('truetype');
 	font-weight: bold;
 	font-style: normal;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+0D01-0D7F, U+200C-200D, U+25CC;
 }
 
 @font-face {
@@ -62,6 +67,7 @@
 		url('fonts/Manjari/Manjari-Thin.ttf') format('truetype');
 	font-weight: 100;
 	font-style: normal;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+0D01-0D7F, U+200C-200D, U+25CC;
 }
 
 @font-face {
@@ -73,6 +79,7 @@
 		url('fonts/Manjari/Manjari-Regular.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+0D01-0D7F, U+200C-200D, U+25CC;
 }
 
 @font-face {
@@ -84,6 +91,7 @@
 		url('fonts/Manjari/Manjari-Bold.ttf') format('truetype');
 	font-weight: bold;
 	font-style: normal;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+0D01-0D7F, U+200C-200D, U+25CC;
 }
 
 @font-face {
@@ -95,6 +103,7 @@
 		url('fonts/Meera/Meera.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+0D01-0D7F, U+200C-200D, U+25CC;
 }
 
 @font-face {
@@ -106,6 +115,7 @@
 		url('fonts/Rachana/Rachana-Regular.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+0D01-0D7F, U+200C-200D, U+25CC;
 }
 
 @font-face {
@@ -117,6 +127,7 @@
 		url('fonts/Rachana/Rachana-Bold.ttf') format('truetype');
 	font-weight: bold;
 	font-style: normal;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+0D01-0D7F, U+200C-200D, U+25CC;
 }
 
 @font-face {
@@ -128,6 +139,7 @@
 		url('fonts/RaghuMalayalam/RaghuMalayalamSans-Regular.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
+	unicode-range: U+0000-02DC, U+0D01-0D7F, U+200C-200D, U+25CC;
 }
 
 @font-face {
@@ -139,6 +151,7 @@
 		url('fonts/Suruma/Suruma.ttf') format('truetype');
 	font-weight: 500;
 	font-style: normal;
+	unicode-range: U+0D01-0D7F, U+200C-200D, U+25CC;
 }
 
 @font-face {
@@ -150,4 +163,5 @@
 		url('fonts/Uroob/Uroob.ttf') format('truetype');
 	font-weight: bold;
 	font-style: normal;
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+0D01-0D7F, U+200C-200D, U+25CC;
 }

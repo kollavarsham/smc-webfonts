@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/kollavarsham/smc-webfonts/issues"
   },
-  "homepage": "https://kollavarsham.org/smc-webfonts/"
+  "homepage": "https://kollavarsham.org/smc-webfonts/",
+  "devDependencies": {
+    "yuicompressor": "^2.4.8"
+  }
 }
