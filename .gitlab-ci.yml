@@ -11,15 +11,7 @@ pages:
   - yarn
   - gulp
   - mkdir public
-  - mkdir public/fonts
-  - mkdir public/scripts
-  - mkdir public/styles
-  - cp -r fonts/* public/fonts/
-  - cp scripts/* public/scripts/
-  - cp styles/* public/styles/
-  - cp smc-webfonts.min.css public/
-  - cp script.es5.min.js public/
-  - cp index.html public/
+  - cp dist/* public
   artifacts:
     paths:
     - public

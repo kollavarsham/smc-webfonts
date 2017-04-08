@@ -60,6 +60,7 @@ typings/
 .env
 
 # Project specific
+dist/
 smc-webfonts.css
 **/*.min.css
 
