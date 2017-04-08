@@ -93,7 +93,7 @@
       const name = f.fontFamily + ' (' + f.fontWeight + ')';
       return {
         name       : name,
-        properName : name.toLowerCase().replace(/\(|\)/g, '').replace(/\s/g, '-'),
+        properName : name.toLowerCase().replace(/[()]/g, '').replace(/\s/g, '-'),
         font       : f
       };
     });
