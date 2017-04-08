@@ -17,6 +17,8 @@ pages:
   - cp -r fonts/* public/fonts/
   - cp scripts/* public/scripts/
   - cp styles/* public/styles/
+  - cp smc-webfonts.min.css public/
+  - cp scripts.es5.min.js public/
   - cp index.html public/
   artifacts:
     paths:
