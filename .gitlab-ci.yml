@@ -11,7 +11,7 @@ pages:
   - yarn
   - gulp
   - mkdir public
-  - cp dist/* public
+  - mv dist/* public
   artifacts:
     paths:
     - public
