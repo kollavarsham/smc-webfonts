@@ -11,7 +11,7 @@ pages:
   - yarn
   - gulp
   - mkdir public
-  - cp fonts/* public
+  - cp -r fonts/* public
   - cp scripts/* public
   - cp styles/* public
   - cp index.html public
