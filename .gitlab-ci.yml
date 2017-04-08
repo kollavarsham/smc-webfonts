@@ -11,7 +11,10 @@ pages:
   - yarn
   - gulp
   - mkdir public
-  - mv ./* public
+  - cp fonts/* public
+  - cp scripts/* public
+  - cp styles/* public
+  - cp index.html public
   artifacts:
     paths:
     - public
