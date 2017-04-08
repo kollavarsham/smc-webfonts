@@ -1,0 +1,19 @@
+image: node:4.2.2
+
+pages:
+  cache:
+    untracked: true
+    paths:
+    - node_modules/
+
+  script:
+  - npm install yarn gulp -g
+  - yarn
+  - gulp
+  - mkdir public
+  - mv ./* public
+  artifacts:
+    paths:
+    - public
+  only:
+  - master

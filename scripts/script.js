@@ -1,5 +1,5 @@
 (function () {
-  var fontCollection = [
+  const fontCollection = [
     {
       fontFamily  : 'Meera',
       fontWeight  : 'normal',
@@ -87,10 +87,10 @@
     }
   ];
 
-  var fonts = fontCollection
+  const fonts = fontCollection
     .sort(firstBy('fontFamily').thenBy('fontWeight'))
-    .map(function (f) {
-      var name = f.fontFamily + ' (' + f.fontWeight + ')';
+    .map(f => {
+      const name = f.fontFamily + ' (' + f.fontWeight + ')';
       return {
         name       : name,
         properName : name.toLowerCase().replace(/\(|\)/g, '').replace(/\s/g, '-'),
@@ -98,93 +98,103 @@
       };
     });
 
-  var englishText = 'The quick brown fox jumps over the lazy dog.';
+  const englishText = 'The quick brown fox jumps over the lazy dog.';
   // https://clagnut.com/blog/2380/#Malayalam
-  var malayalamText = 'അജവും ആനയും ഐരാവതവും ഗരുഡനും കഠോര സ്വരം പൊഴിക്കെ ഹാരവും ഒഢ്യാണവും ഫാലത്തില്‍ മഞ്ഞളും ഈറന്‍ കേശത്തില്‍ ഔഷധ എണ്ണയുമായി ഋതുമതിയും അനഘയും ഭൂനാഥയുമായ ഉമ ദുഃഖഛവിയോടെ ഇടതു പാദം ഏന്തി ങ്യേയാദൃശം നിര്‍ഝരിയിലെ ചിറ്റലകളെ ഓമനിക്കുമ്പോള്‍ ബാ‍ലയുടെ കണ്‍കളില്‍ നീര്‍ ഊര്‍ന്നു വിങ്ങി.';
-  
-  document.querySelectorAll('.ml-text').forEach(function (e) { e.innerText = malayalamText; });
-  document.querySelectorAll('.en-text').forEach(function (e) { e.innerText = englishText; });
+  const malayalamText = 'അജവും ആനയും ഐരാവതവും ഗരുഡനും കഠോര സ്വരം പൊഴിക്കെ ഹാരവും ഒഢ്യാണവും ഫാലത്തില്‍ മഞ്ഞളും ഈറന്‍ കേശത്തില്‍ ഔഷധ എണ്ണയുമായി ഋതുമതിയും അനഘയും ഭൂനാഥയുമായ ഉമ ദുഃഖഛവിയോടെ ഇടതു പാദം ഏന്തി ങ്യേയാദൃശം നിര്‍ഝരിയിലെ ചിറ്റലകളെ ഓമനിക്കുമ്പോള്‍ ബാ‍ലയുടെ കണ്‍കളില്‍ നീര്‍ ഊര്‍ന്നു വിങ്ങി.';
 
-  var makeActive = function (itemsSelector, activeElement) {
-    document.querySelectorAll(itemsSelector).forEach(function (f) { f.classList.remove('active'); });
+  document.querySelectorAll('.ml-text').forEach(e => e.innerText = malayalamText);
+  document.querySelectorAll('.en-text').forEach(e => e.innerText = englishText);
+
+  const makeActive = (itemsSelector, activeElement) => {
+    document.querySelectorAll(itemsSelector).forEach(f => f.classList.remove('active'));
     activeElement.classList.add('active');
   };
 
-  var switcher = document.querySelector('#switcher');
+  const switcher = document.querySelector('#switcher');
 
-  var openSwitcher = document.querySelector('#open-switcher');
-  openSwitcher.onclick = function () {
+  document.querySelector('#open-switcher').onclick = function (e) {
     switcher.style.display = 'inline-block';
+    e.stopPropagation();
   };
 
-  var closeSwitcher = document.querySelector('#close-switcher');
-  closeSwitcher.onclick = function () {
-    switcher.style.display = 'none';
-  };
+  switcher.onclick = e => { e.stopPropagation(); };
+
+  const closeSwitcher = document.querySelector('#close-switcher');
+  closeSwitcher.onclick = () => switcher.style.display = 'none';
 
   fonts.forEach(function (f) {
-    var fontElement = document.createElement('div');
+    const fontElement = document.createElement('div');
     fontElement.id = f.properName + '-button';
     fontElement.className = 'switcher-font';
-    var normalizedName = f.name.replace(/\s\(normal\)/, '');
+    const normalizedName = f.name.replace(/\s\(normal\)/, '');
     fontElement.innerText = normalizedName;
     fontElement.onclick = function () {
-      var nameElement = document.querySelector('#font-name');
+      // change the font name
+      const nameElement = document.querySelector('#font-name');
       nameElement.innerText = normalizedName;
 
-      var fontCssText = 'font-family: \'' + f.font.fontFamily + '\'; font-weight: ' + f.font.fontWeight + '; font-style: normal;';
-      var fontContainerElement = document.querySelector('.font-container');
+      // change the static preview
+      const fontCssText = 'font-family: \'' + f.font.fontFamily + '\'; font-weight: ' + f.font.fontWeight + '; font-style: normal;';
+      const fontContainerElement = document.querySelector('.font-container');
       fontContainerElement.style.cssText = fontCssText;
 
-      var tabHeadContainerElement = document.querySelector('.tab-head-container');
+      // change the tabHeadContainer font
+      const tabHeadContainerElement = document.querySelector('.tab-head-container');
       tabHeadContainerElement.style.cssText = fontCssText;
 
-      var usageElement = document.querySelector('#usage');
+      // update the usage
+      const usageElement = document.querySelector('#usage');
       usageElement.innerText = '<!-- HTML (within the HEAD element) -->\n<link rel="stylesheet" href="https://cdn.jsdelivr.net/smc-webfonts/0.0.1/fonts/' + f.font.cssFileName + '.min.css">\n\n/* CSS */\n.your-style {\n  font-family : \'' + f.font.fontFamily + '\';\n  font-weight : ' + f.font.fontWeight + ';\n  font-style  : normal;\n}';
 
+      // set hash
       window.location.hash = '#' + f.properName;
 
+      // make this font active
       makeActive('.switcher-font', this);
 
-      var jsFiddleContainer = document.querySelector('#jsFiddle-container');
+      // switch the jsfiddle
+      const jsFiddleContainer = document.querySelector('#jsFiddle-container');
       while (jsFiddleContainer.firstChild) {
         jsFiddleContainer.removeChild(jsFiddleContainer.firstChild);
       }
-      var jsFiddle = document.createElement('script');
+      const jsFiddle = document.createElement('script');
       jsFiddle.setAttribute('async', '');
       jsFiddle.setAttribute('src', '//jsfiddle.net/FloydPink/' + f.font.jsFiddleId + '/embed/result,css,html/');
-
       jsFiddleContainer.appendChild(jsFiddle);
 
+      // set page title
       document.title = 'SMC Malayalam Webfonts - ' + normalizedName;
 
+      // close the menu
       closeSwitcher.onclick.call(closeSwitcher);
     };
-    switcher.appendChild(fontElement);
 
+    switcher.appendChild(fontElement);
   });
 
   document.querySelectorAll('.tab-head').forEach(function (h) {
     h.onclick = function () {
-      document.querySelectorAll('.tab').forEach(function (t) { t.style.display = 'none'; });
+      document.querySelectorAll('.tab').forEach(t => t.style.display = 'none');
       document.querySelector('.' + this.id).style.display = 'block';
 
       makeActive('.tab-head', this);
     };
   });
 
-  var mlHead = document.querySelector('#ml');
+  document.querySelector('html').onclick = () => { closeSwitcher.onclick.call(closeSwitcher); };
+
+  const mlHead = document.querySelector('#ml');
   mlHead.onclick.call(mlHead);
 
-  var initialFont = 'manjari-normal';
+  let initialFont = 'manjari-normal';
   if (window.location.hash) {
-    var activeFontName = window.location.hash.substring(1);
-    if (fonts.filter(function (f) { return f.properName === activeFontName;}).length === 1) {
+    const activeFontName = window.location.hash.substring(1);
+    if (fonts.filter(f => f.properName === activeFontName).length === 1) {
       initialFont = activeFontName;
     }
   }
 
-  var firstFontElement = document.querySelector('#' + initialFont + '-button');
+  const firstFontElement = document.querySelector('#' + initialFont + '-button');
   firstFontElement.onclick.call(firstFontElement);
 
 })();

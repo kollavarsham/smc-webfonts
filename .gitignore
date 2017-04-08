@@ -59,4 +59,10 @@ typings/
 # dotenv environment variables file
 .env
 
+# Project specific
+smc-webfonts.css
+**/*.min.css
 
+script.es5.js
+script.es5.min.js
+!scripts/thenBy.min.js
