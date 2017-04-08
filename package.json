@@ -32,7 +32,6 @@
     "gulp-rework": "^1.2.0",
     "gulp-uglify": "^2.1.2",
     "pump": "^1.0.2",
-    "rework-plugin-url": "^1.1.0",
-    "yuicompressor": "^2.4.8"
+    "rework-plugin-url": "^1.1.0"
   }
 }
