@@ -161,12 +161,11 @@ gulp.task('default', cb => {
     cb);
 });
 
-gulp.task('build-and-sync', ['default'], cb => {
+gulp.task('build-and-sync', ['default'], () => {
   runSequence(
     'tag-gitlab',
     'push-gitlab',
     'deploy',
     'tag-github',
-    'push-github',
-    cb);
+    'push-github');
 });
