@@ -32,7 +32,7 @@ const masterBranch = 'master';
 const tagRepo = function (cwd) {
   return gulp.src('./package.json', {cwd : cwd})
     .pipe(bump({type : 'patch'}))
-    .pipe(gulp.dest(currentDirectory))
+    .pipe(gulp.dest(cwd))
     .pipe(git.commit('bumps package version [ci skip]', {cwd : cwd}))
     .pipe(tagVersion({cwd : cwd}));
 };
