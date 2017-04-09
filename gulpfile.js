@@ -20,10 +20,16 @@ const vinylPaths = require('vinyl-paths');
 const currentDirectory = './';
 const distDirectory = './dist';
 const deployCacheDirectory = './.publish';
-const gitlabRepoUrl = `https://${process.env.GITLAB_REPO_TOKEN}@github.com/kollavarsham/smc-webfonts.git`;
+
+const gitlabRepoUrl = `https://floydpink:${process.env.GITLAB_REPO_TOKEN}@gitlab.com/kollavarsham/smc-webfonts.git`;
 const githubRepoUrl = `https://${process.env.GITHUB_REPO_TOKEN}@github.com/kollavarsham/smc-webfonts.git`;
 
-const tagRepo = function(cwd) {
+const gitLabRemote = 'gitlab';
+const gitHubRemote = 'github';
+
+const masterBranch = 'master';
+
+const tagRepo = function (cwd) {
   return gulp.src('./package.json', {cwd : cwd})
     .pipe(bump({type : 'patch'}))
     .pipe(gulp.dest(currentDirectory))
@@ -113,7 +119,7 @@ gulp.task('deploy', () => {
   return gulp.src(`${distDirectory}/**/*`)
     .pipe(ghPages({
       remoteUrl : githubRepoUrl,
-      branch    : 'master',
+      branch    : masterBranch,
       cacheDir  : deployCacheDirectory
     }));
 });
@@ -127,17 +133,19 @@ gulp.task('tag-github', () => {
 });
 
 gulp.task('push-gitlab', cb => {
-  return git.addRemote('gitlab', gitlabRepoUrl, {cwd : currentDirectory}, () => {
-    return git.push('gitlab', 'master', {cwd : currentDirectory}, () => cb());
+  return git.removeRemote(gitLabRemote, {cwd : currentDirectory, quiet : true}, () => {
+    return git.addRemote(gitLabRemote, gitlabRepoUrl, {cwd : currentDirectory}, () => {
+      return git.push(gitLabRemote, masterBranch, {cwd : currentDirectory}, () => cb());
+    });
   });
 });
 
 gulp.task('push-github', cb => {
-  return git.addRemote('github', githubRepoUrl, {cwd : deployCacheDirectory}, () => {
-    return git.push('github', 'master', {cwd : deployCacheDirectory}, () => {
+  return git.removeRemote(gitHubRemote, {cwd : deployCacheDirectory, quiet : true}, () => {
+    return git.push(gitHubRemote, masterBranch, {cwd : deployCacheDirectory}, () => {
       return git.checkout('gh-pages', {cwd : deployCacheDirectory}, () => {
-        return git.merge('master', {cwd : deployCacheDirectory}, () => {
-          return git.push('github', 'gh-pages', {cwd : deployCacheDirectory}, () => cb());
+        return git.merge(masterBranch, {cwd : deployCacheDirectory}, () => {
+          return git.push(gitHubRemote, 'gh-pages', {cwd : deployCacheDirectory}, () => cb());
         });
       });
     });
