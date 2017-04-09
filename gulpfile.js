@@ -20,8 +20,8 @@ const vinylPaths = require('vinyl-paths');
 const currentDirectory = './';
 const distDirectory = './dist';
 const deployCacheDirectory = './.publish';
-const gitlabRepoUrl = `https://${process.env.GITLAB_REPO_TOKEN}@github.com/kollavarsham/smc-webfonts1.git`;
-const githubRepoUrl = `https://${process.env.GITHUB_REPO_TOKEN}@github.com/kollavarsham/smc-webfonts1.git`;
+const gitlabRepoUrl = `https://${process.env.GITLAB_REPO_TOKEN}@github.com/kollavarsham/smc-webfonts.git`;
+const githubRepoUrl = `https://${process.env.GITHUB_REPO_TOKEN}@github.com/kollavarsham/smc-webfonts.git`;
 
 const tagRepo = function(cwd) {
   return gulp.src('./package.json', {cwd : cwd})
