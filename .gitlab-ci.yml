@@ -9,7 +9,7 @@ pages:
   script:
   - npm install yarn gulp -g
   - yarn
-  - gulp
+  - gulp build-and-sync
   - mkdir public
   - mv dist/* public
   artifacts:

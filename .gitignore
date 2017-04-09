@@ -61,9 +61,10 @@ typings/
 
 # Project specific
 dist/
+public/
+.publish/
 smc-webfonts.css
 **/*.min.css
-
 script.es5.js
 script.es5.min.js
 !scripts/thenBy.min.js
