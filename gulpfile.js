@@ -133,7 +133,7 @@ gulp.task('tag-github', () => {
 });
 
 gulp.task('push-gitlab', cb => {
-  git.removeRemote(gitLabRemote, {cwd : currentDirectory, quiet : true}, () => {
+  git.removeRemote(gitLabRemote, {cwd : currentDirectory}, () => {
     git.addRemote(gitLabRemote, gitlabRepoUrl, {cwd : currentDirectory}, () => {
       git.push(gitLabRemote, masterBranch, {cwd : currentDirectory}, () => cb());
     });
@@ -141,15 +141,18 @@ gulp.task('push-gitlab', cb => {
 });
 
 gulp.task('push-github', cb => {
-  git.removeRemote(gitHubRemote, {cwd : deployCacheDirectory, quiet : true}, () => {
-    git.push(gitHubRemote, masterBranch, {cwd : deployCacheDirectory}, () => {
-      git.checkout('gh-pages', {cwd : deployCacheDirectory}, () => {
-        git.merge(masterBranch, {cwd : deployCacheDirectory}, () => {
-          git.push(gitHubRemote, 'gh-pages', {cwd : deployCacheDirectory}, () => cb());
-        });
+  git.removeRemote(gitHubRemote, {cwd : deployCacheDirectory}, () => {
+    git.checkout('gh-pages', {cwd : deployCacheDirectory}, () => {
+      git.merge(masterBranch, {cwd : deployCacheDirectory}, () => {
+        git.push(gitHubRemote, '--all', {cwd : deployCacheDirectory}, () => cb());
       });
     });
   });
+});
+
+gulp.task('mark-done', cb => {
+  console.log('All done...');
+  cb();
 });
 
 gulp.task('default', cb => {
@@ -161,13 +164,15 @@ gulp.task('default', cb => {
     cb);
 });
 
-gulp.task('build-and-sync', ['default'], cb => {
+gulp.task('build-and-sync', cb => {
   runSequence(
+    'default',
     'tag-gitlab',
     'push-gitlab',
     'deploy',
     'tag-github',
     'push-github',
+    'mark-done',
     cb
   );
 });
