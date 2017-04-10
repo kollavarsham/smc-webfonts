@@ -133,18 +133,18 @@ gulp.task('tag-github', () => {
 });
 
 gulp.task('push-gitlab', cb => {
-  return git.removeRemote(gitLabRemote, {cwd : currentDirectory, quiet : true}, () => {
-    return git.addRemote(gitLabRemote, gitlabRepoUrl, {cwd : currentDirectory}, () => {
-      return git.push(gitLabRemote, masterBranch, {cwd : currentDirectory}, () => cb());
+  git.removeRemote(gitLabRemote, {cwd : currentDirectory, quiet : true}, () => {
+    git.addRemote(gitLabRemote, gitlabRepoUrl, {cwd : currentDirectory}, () => {
+      git.push(gitLabRemote, masterBranch, {cwd : currentDirectory}, () => cb());
     });
   });
 });
 
 gulp.task('push-github', cb => {
-  return git.removeRemote(gitHubRemote, {cwd : deployCacheDirectory, quiet : true}, () => {
-    return git.push(gitHubRemote, masterBranch, {cwd : deployCacheDirectory}, () => {
-      return git.checkout('gh-pages', {cwd : deployCacheDirectory}, () => {
-        return git.merge(masterBranch, {cwd : deployCacheDirectory}, () => {
+  git.removeRemote(gitHubRemote, {cwd : deployCacheDirectory, quiet : true}, () => {
+    git.push(gitHubRemote, masterBranch, {cwd : deployCacheDirectory}, () => {
+      git.checkout('gh-pages', {cwd : deployCacheDirectory}, () => {
+        git.merge(masterBranch, {cwd : deployCacheDirectory}, () => {
           git.push(gitHubRemote, 'gh-pages', {cwd : deployCacheDirectory}, () => cb());
         });
       });
