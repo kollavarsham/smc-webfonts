@@ -145,7 +145,7 @@ gulp.task('push-github', cb => {
     return git.push(gitHubRemote, masterBranch, {cwd : deployCacheDirectory}, () => {
       return git.checkout('gh-pages', {cwd : deployCacheDirectory}, () => {
         return git.merge(masterBranch, {cwd : deployCacheDirectory}, () => {
-          return git.push(gitHubRemote, 'gh-pages', {cwd : deployCacheDirectory}, () => cb());
+          git.push(gitHubRemote, 'gh-pages', {cwd : deployCacheDirectory}, () => cb());
         });
       });
     });
@@ -161,11 +161,13 @@ gulp.task('default', cb => {
     cb);
 });
 
-gulp.task('build-and-sync', ['default'], () => {
+gulp.task('build-and-sync', ['default'], cb => {
   runSequence(
     'tag-gitlab',
     'push-gitlab',
     'deploy',
     'tag-github',
-    'push-github');
+    'push-github',
+    cb
+  );
 });
