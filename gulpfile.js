@@ -19,7 +19,7 @@ const vinylPaths = require('vinyl-paths');
 
 const currentDirectory = './';
 const distDirectory = './dist';
-const deployCacheDirectory = './.publish';
+const githubCacheDirectory = './.github';
 
 const gitlabRepoUrl = `https://floydpink:${process.env.GITLAB_REPO_TOKEN}@gitlab.com/kollavarsham/smc-webfonts.git`;
 const githubRepoUrl = `https://${process.env.GITHUB_REPO_TOKEN}@github.com/kollavarsham/smc-webfonts.git`;
@@ -39,7 +39,7 @@ const tagRepo = function (cwd) {
 
 // clean the 'dist' dir
 gulp.task('clean', () => {
-  return gulp.src(distDirectory)
+  return gulp.src([distDirectory, githubCacheDirectory])
     .pipe(vinylPaths(del));
 });
 
@@ -115,21 +115,8 @@ gulp.task('publish', (cb) => {
   ], cb);
 });
 
-gulp.task('deploy', () => {
-  return gulp.src(`${distDirectory}/**/*`)
-    .pipe(ghPages({
-      remoteUrl : githubRepoUrl,
-      branch    : masterBranch,
-      cacheDir  : deployCacheDirectory
-    }));
-});
-
 gulp.task('tag-gitlab', () => {
   return tagRepo(currentDirectory);
-});
-
-gulp.task('tag-github', () => {
-  return tagRepo(deployCacheDirectory);
 });
 
 gulp.task('push-gitlab', cb => {
@@ -140,17 +127,32 @@ gulp.task('push-gitlab', cb => {
   });
 });
 
-gulp.task('push-github', cb => {
-  git.removeRemote(gitHubRemote, {cwd : deployCacheDirectory}, () => {
-    git.checkout('gh-pages', {cwd : deployCacheDirectory}, () => {
-      git.merge(masterBranch, {cwd : deployCacheDirectory}, () => {
-        git.push(gitHubRemote, '--all', {cwd : deployCacheDirectory}, () => cb());
-      });
-    });
-  });
+gulp.task('copy-to-github', () => {
+  return gulp.src(`${distDirectory}/**/*`)
+    .pipe(gulp.dest(githubCacheDirectory));
 });
 
-gulp.task('mark-done', cb => {
+gulp.task('tag-github', () => {
+  return tagRepo(githubCacheDirectory);
+});
+
+gulp.task('push-github-master', () => {
+  return gulp.src(`${githubCacheDirectory}/**/*`)
+    .pipe(ghPages({
+      remoteUrl : githubRepoUrl,
+      branch    : masterBranch
+    }));
+});
+
+gulp.task('push-github-gh-pages', () => {
+  return gulp.src(`${githubCacheDirectory}/**/*`)
+    .pipe(ghPages({
+      remoteUrl : githubRepoUrl,
+      branch    : 'gh-pages'
+    }));
+});
+
+gulp.task('all-done', cb => {
   console.log('All done...');
   cb();
 });
@@ -169,10 +171,11 @@ gulp.task('build-and-sync', cb => {
     'default',
     'tag-gitlab',
     'push-gitlab',
-    'deploy',
+    'copy-to-github',
     'tag-github',
-    'push-github',
-    'mark-done',
+    'push-github-master',
+    'push-github-gh-pages',
+    'all-done',
     cb
   );
 });
