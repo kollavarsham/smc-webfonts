@@ -127,29 +127,28 @@ gulp.task('push-gitlab', cb => {
   });
 });
 
-gulp.task('copy-to-github', () => {
+gulp.task('deploy', cb => {
   return gulp.src(`${distDirectory}/**/*`)
-    .pipe(gulp.dest(githubCacheDirectory));
+    .pipe(ghPages({
+      remoteUrl : githubRepoUrl,
+      branch    : masterBranch,
+      cacheDir  : githubCacheDirectory
+    }))
+    .on('finish', () => cb());
 });
 
 gulp.task('tag-github', () => {
   return tagRepo(githubCacheDirectory);
 });
 
-gulp.task('push-github-master', () => {
-  return gulp.src(`${githubCacheDirectory}/**/*`)
-    .pipe(ghPages({
-      remoteUrl : githubRepoUrl,
-      branch    : masterBranch
-    }));
-});
-
-gulp.task('push-github-gh-pages', () => {
-  return gulp.src(`${githubCacheDirectory}/**/*`)
-    .pipe(ghPages({
-      remoteUrl : githubRepoUrl,
-      branch    : 'gh-pages'
-    }));
+gulp.task('push-github', cb => {
+  git.removeRemote(gitHubRemote, {cwd : githubCacheDirectory}, () => {
+    git.checkout('gh-pages', {cwd : githubCacheDirectory}, () => {
+      git.merge(masterBranch, {cwd : githubCacheDirectory}, () => {
+        git.push(gitHubRemote, '--all', {cwd : githubCacheDirectory}, () => cb());
+      });
+    });
+  });
 });
 
 gulp.task('all-done', cb => {
@@ -171,10 +170,9 @@ gulp.task('build-and-sync', cb => {
     'default',
     'tag-gitlab',
     'push-gitlab',
-    'copy-to-github',
+    'deploy',
     'tag-github',
-    'push-github-master',
-    'push-github-gh-pages',
+    'push-github',
     'all-done',
     cb
   );
