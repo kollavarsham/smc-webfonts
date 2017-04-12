@@ -1,0 +1,103 @@
+/*global firstBy:true*/
+(function () {
+  const englishText = 'The quick brown fox jumps over the lazy dog.';
+  // https://clagnut.com/blog/2380/#Malayalam
+  const malayalamText = 'അജവും ആനയും ഐരാവതവും ഗരുഡനും കഠോര സ്വരം പൊഴിക്കെ ഹാരവും ഒഢ്യാണവും ഫാലത്തില്‍ മഞ്ഞളും ഈറന്‍ കേശത്തില്‍ ഔഷധ എണ്ണയുമായി ഋതുമതിയും അനഘയും ഭൂനാഥയുമായ ഉമ ദുഃഖഛവിയോടെ ഇടതു പാദം ഏന്തി ങ്യേയാദൃശം നിര്‍ഝരിയിലെ ചിറ്റലകളെ ഓമനിക്കുമ്പോള്‍ ബാ‍ലയുടെ കണ്‍കളില്‍ നീര്‍ ഊര്‍ന്നു വിങ്ങി.';
+
+  document.querySelectorAll('.ml-text').forEach(e => e.innerText = malayalamText);
+  document.querySelectorAll('.en-text').forEach(e => e.innerText = englishText);
+
+  const makeActive = (itemsSelector, activeElement) => {
+    document.querySelectorAll(itemsSelector).forEach(f => f.classList.remove('active'));
+    activeElement.classList.add('active');
+  };
+
+  const switcher = document.querySelector('#switcher');
+
+  document.querySelector('#open-switcher').onclick = function (e) {
+    switcher.style.display = 'inline-block';
+    e.stopPropagation();
+  };
+
+  switcher.onclick = e => { e.stopPropagation(); };
+
+  const closeSwitcher = document.querySelector('#close-switcher');
+  closeSwitcher.onclick = () => switcher.style.display = 'none';
+
+  fonts
+    .sort(firstBy('fontFamily').thenBy('fontWeight'))
+    .forEach(function (f) {
+      const fontElement = document.createElement('div');
+      fontElement.id = f.urlReadyName + '-button';
+      fontElement.className = 'switcher-font';
+      fontElement.innerText = f.displayName;
+      fontElement.onclick = function () {
+        // change the font name
+        const nameElement = document.querySelector('#font-name');
+        nameElement.innerText = f.displayName;
+
+        // change the static preview
+        const fontCssText = 'font-family: \'' + f.font.fontFamily + '\'; font-weight: ' + f.font.fontWeight + '; font-style: normal;';
+        const fontContainerElement = document.querySelector('.font-container');
+        fontContainerElement.style.cssText = fontCssText;
+
+        // change the tabHeadContainer font
+        const tabHeadContainerElement = document.querySelector('.tab-head-container');
+        tabHeadContainerElement.style.cssText = fontCssText;
+
+        // update the usage
+        const usageElement = document.querySelector('#usage');
+        usageElement.innerText = '<!-- HTML (within the HEAD element) -->\n<link rel="stylesheet" href="https://cdn.jsdelivr.net/smc-webfonts/latest/fonts/' + f.font.cssFileName + '.min.css">\n\n/* CSS */\n.your-style {\n  font-family : \'' + f.font.fontFamily + '\';\n  font-weight : ' + f.font.fontWeight + ';\n  font-style  : normal;\n}';
+
+        // set hash
+        window.location.hash = '#' + f.urlReadyName;
+
+        // make this font active
+        makeActive('.switcher-font', this);
+
+        // switch the jsfiddle
+        const jsFiddleContainer = document.querySelector('#jsFiddle-container');
+        while (jsFiddleContainer.firstChild) {
+          jsFiddleContainer.removeChild(jsFiddleContainer.firstChild);
+        }
+        const jsFiddle = document.createElement('script');
+        jsFiddle.setAttribute('async', '');
+        jsFiddle.setAttribute('src', '//jsfiddle.net/FloydPink/' + f.font.jsFiddleId + '/embed/result,css,html/');
+        jsFiddleContainer.appendChild(jsFiddle);
+
+        // set page title
+        document.title = 'SMC Malayalam Webfonts - ' + f.displayName;
+
+        // close the menu
+        closeSwitcher.onclick.call(closeSwitcher);
+      };
+
+      switcher.appendChild(fontElement);
+    });
+
+  document.querySelectorAll('.tab-head').forEach(function (h) {
+    h.onclick = function () {
+      document.querySelectorAll('.tab').forEach(t => t.style.display = 'none');
+      document.querySelector('.' + this.id).style.display = 'block';
+
+      makeActive('.tab-head', this);
+    };
+  });
+
+  document.querySelector('html').onclick = () => { closeSwitcher.onclick.call(closeSwitcher); };
+
+  const mlHead = document.querySelector('#ml');
+  mlHead.onclick.call(mlHead);
+
+  let initialFont = 'manjari-normal';
+  if (window.location.hash) {
+    const activeFontName = window.location.hash.substring(1);
+    if (fonts.filter(f => f.urlReadyName === activeFontName).length === 1) {
+      initialFont = activeFontName;
+    }
+  }
+
+  const firstFontElement = document.querySelector('#' + initialFont + '-button');
+  firstFontElement.onclick.call(firstFontElement);
+
+})();

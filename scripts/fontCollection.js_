@@ -1,0 +1,101 @@
+/* eslint-disable */
+const fontCollection = [
+  {
+    fontFamily  : 'Meera',
+    fontWeight  : 'normal',
+    fontStyle   : 'normal',
+    cssFileName : 'meera',
+    jsFiddleId  : 'v4vyxLju'
+  }, {
+    fontFamily  : 'Rachana',
+    fontWeight  : 'normal',
+    fontStyle   : 'normal',
+    cssFileName : 'rachana',
+    jsFiddleId  : 'mapzaymx'
+  }, {
+    fontFamily  : 'Dyuthi',
+    fontWeight  : 'normal',
+    fontStyle   : 'normal',
+    cssFileName : 'dyuthi',
+    jsFiddleId  : '1c791dfe'
+  }, {
+    fontFamily  : 'RaghuMalayalam',
+    fontWeight  : 'normal',
+    fontStyle   : 'normal',
+    cssFileName : 'raghumalayalam',
+    jsFiddleId  : 'f1L1jy2z'
+  }, {
+    fontFamily  : 'Chilanka',
+    fontWeight  : 'normal',
+    fontStyle   : 'normal',
+    cssFileName : 'chilanka',
+    jsFiddleId  : 'tp2m8L9p'
+  }, {
+    fontFamily  : 'Keraleeyam',
+    fontWeight  : 'bold',
+    fontStyle   : 'normal',
+    cssFileName : 'keraleeyam',
+    jsFiddleId  : 'a6uqj4eL'
+  }, {
+    fontFamily  : 'Manjari',
+    fontWeight  : 'normal',
+    fontStyle   : 'normal',
+    cssFileName : 'manjari',
+    jsFiddleId  : '133d3ajo'
+  }, {
+    fontFamily  : 'Manjari',
+    fontWeight  : 100,
+    fontStyle   : 'normal',
+    cssFileName : 'manjari',
+    jsFiddleId  : 'h4mmru5e'
+  }, {
+    fontFamily  : 'Suruma',
+    fontWeight  : 500,
+    fontStyle   : 'normal',
+    cssFileName : 'suruma',
+    jsFiddleId  : 'Lv8dchff'
+  }, {
+    fontFamily  : 'Rachana',
+    fontWeight  : 'bold',
+    fontStyle   : 'normal',
+    cssFileName : 'rachana',
+    jsFiddleId  : '1f7nxt16'
+  }, {
+    fontFamily  : 'Uroob',
+    fontWeight  : 'bold',
+    fontStyle   : 'normal',
+    cssFileName : 'uroob',
+    jsFiddleId  : 'pLq5qz9j'
+  }, {
+    fontFamily  : 'Karumbi',
+    fontWeight  : 'normal',
+    fontStyle   : 'normal',
+    cssFileName : 'karumbi',
+    jsFiddleId  : '7d3okgq9'
+  }, {
+    fontFamily  : 'AnjaliOldLipi',
+    fontWeight  : 'normal',
+    fontStyle   : 'normal',
+    cssFileName : 'anjali',
+    jsFiddleId  : '9ajq9cun'
+  }, {
+    fontFamily  : 'Manjari',
+    fontWeight  : 'bold',
+    fontStyle   : 'normal',
+    cssFileName : 'manjari',
+    jsFiddleId  : '3c3vuuz6'
+  }
+];
+
+const fonts = fontCollection
+  .map(f => {
+    const name = f.fontFamily + ' (' + f.fontWeight + ')';
+    return {
+      name         : name,
+      displayName  : name.replace(/\s\(normal\)/, ''),
+      urlReadyName : name.toLowerCase().replace(/[()]/g, '').replace(/\s/g, '-'),
+      font         : f
+    };
+  });
+
+/* eslint-disable */

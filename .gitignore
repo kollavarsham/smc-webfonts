@@ -127,6 +127,8 @@ public/
 .github/
 smc-webfonts.css
 **/*.min.css
-script.es5.js
-script.es5.min.js
+*.es5.js
+*.es5.min.js
 !scripts/thenBy.min.js
+scripts/script.js
+scripts/bookmarklet.js

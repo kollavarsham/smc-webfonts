@@ -5,6 +5,7 @@ const csso = require('gulp-csso');
 const del = require('del');
 const eslint = require('gulp-eslint');
 const formatter = require('eslint-friendly-formatter');
+const fs = require('fs');
 const ghPages = require('gulp-gh-pages');
 const git = require('gulp-git');
 const gulp = require('gulp');
@@ -12,6 +13,7 @@ const print = require('gulp-print');
 const pump = require('pump');
 const rename = require('gulp-rename');
 const rework = require('gulp-rework');
+const replace = require('gulp-string-replace');
 const runSequence = require('run-sequence');
 const tagVersion = require('gulp-tag-version');
 const uglify = require('gulp-uglify');
@@ -32,9 +34,25 @@ gulp.task('clean', () => {
     .pipe(vinylPaths(del));
 });
 
+// merge fontCollection into bookmarklet
+gulp.task('weave-fonts-into-bookmarklet', () => {
+  return gulp.src(['scripts/fontCollection.js_', 'scripts/bookmarklet.js_'])
+    .pipe(concat('bookmarklet.js'))
+    .pipe(print(file => `created: ${file}`))
+    .pipe(gulp.dest('scripts'));
+});
+
+// merge fontCollection into script
+gulp.task('weave-fonts-into-script', () => {
+  return gulp.src(['scripts/fontCollection.js_', 'scripts/script.js_'])
+    .pipe(concat('script.js'))
+    .pipe(print(file => `created: ${file}`))
+    .pipe(gulp.dest('scripts'));
+});
+
 // lint
-gulp.task('lint', () => {
-  return gulp.src(['scripts/script.js', 'gulpfile.js', '!node_modules/**'])
+gulp.task('lint', ['weave-fonts-into-bookmarklet', 'weave-fonts-into-script'], () => {
+  return gulp.src(['scripts/bookmarklet.js', 'scripts/script.js', 'gulpfile.js', '!node_modules/**'])
     .pipe(eslint())
     .pipe(eslint.format(formatter))
     .pipe(eslint.failAfterError());
@@ -42,18 +60,19 @@ gulp.task('lint', () => {
 
 // transpile and concat all the scripts into one
 gulp.task('build-js', ['lint'], () => {
-  return gulp.src('scripts/script.js')
+  return gulp.src(['scripts/bookmarklet.js', 'scripts/script.js'])
     .pipe(babel({
       presets : ['env']
     }))
-    .pipe(concat('script.es5.js'))
+    .pipe(print(file => `built: ${file}`))
+    .pipe(rename(path => path.basename += '.es5'))
     .pipe(gulp.dest('./scripts'));
 });
 
 // minify/compress the js file
 gulp.task('compress-js', ['build-js'], (cb) => {
   pump([
-    gulp.src('scripts/script.es5.js'),
+    gulp.src('scripts/*.es5.js'),
     print(file => `compressed ${file}`),
     uglify(),
     rename(path => path.basename += '.min'),
@@ -112,6 +131,16 @@ gulp.task('publish', (cb) => {
   ], cb);
 });
 
+// update bookmarklet in dist
+gulp.task('update-bokmarklet', function () {
+  const bookmarkletContent = fs.readFileSync('scripts/bookmarklet.es5.min.js', 'utf8');
+
+  return gulp.src(`${distDirectory}/index.html`)
+    .pipe(replace('@BOOKMARKLET@', encodeURIComponent(bookmarkletContent), {logs : {enabled : false}}))
+    .pipe(print(file => `updated bookmarklet in ${file}`))
+    .pipe(gulp.dest(distDirectory));
+});
+
 gulp.task('deploy-to-github', () => {
   return gulp.src(`${distDirectory}/**/*`)
     .pipe(ghPages({
@@ -143,6 +172,7 @@ gulp.task('build', cb => {
     'compress-css',
     'compress-js',
     'publish',
+    'update-bokmarklet',
     cb);
 });
 
