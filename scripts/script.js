@@ -1,3 +1,4 @@
+/*global firstBy:true*/
 (function () {
   const fontCollection = [
     {

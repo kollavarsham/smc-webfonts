@@ -3,10 +3,11 @@ const bump = require('gulp-bump');
 const concat = require('gulp-concat');
 const csso = require('gulp-csso');
 const del = require('del');
+const eslint = require('gulp-eslint');
+const formatter = require('eslint-friendly-formatter');
 const ghPages = require('gulp-gh-pages');
 const git = require('gulp-git');
 const gulp = require('gulp');
-const path = require('path');
 const print = require('gulp-print');
 const pump = require('pump');
 const rename = require('gulp-rename');
@@ -21,17 +22,9 @@ const currentDirectory = './';
 const distDirectory = './dist';
 const githubCacheDirectory = './.github';
 
-const gitlabRepoUrl = `https://floydpink:${process.env.GITLAB_REPO_TOKEN}@gitlab.com/kollavarsham/smc-webfonts.git`;
 const githubRepoUrl = `https://${process.env.GITHUB_REPO_TOKEN}@github.com/kollavarsham/smc-webfonts.git`;
 
-const gitLabRemote = 'gitlab';
-const gitHubRemote = 'github';
-
 const masterBranch = 'master';
-const ghPagesBranch = 'gh-pages';
-
-const gitLabOpts = {cwd : currentDirectory, quiet : true};
-const gitHubOpts = {cwd : githubCacheDirectory, quiet : true};
 
 // clean the 'dist' dir
 gulp.task('clean', () => {
@@ -39,8 +32,16 @@ gulp.task('clean', () => {
     .pipe(vinylPaths(del));
 });
 
+// lint
+gulp.task('lint', () => {
+  return gulp.src(['scripts/script.js', 'gulpfile.js', '!node_modules/**'])
+    .pipe(eslint())
+    .pipe(eslint.format(formatter))
+    .pipe(eslint.failAfterError());
+});
+
 // transpile and concat all the scripts into one
-gulp.task('build-js', () => {
+gulp.task('build-js', ['lint'], () => {
   return gulp.src('scripts/script.js')
     .pipe(babel({
       presets : ['env']
@@ -111,7 +112,7 @@ gulp.task('publish', (cb) => {
   ], cb);
 });
 
-gulp.task('deploy', () => {
+gulp.task('deploy-to-github', () => {
   return gulp.src(`${distDirectory}/**/*`)
     .pipe(ghPages({
       remoteUrl : githubRepoUrl,
@@ -136,36 +137,7 @@ gulp.task('tag-github', () => {
   return tagRepo(githubCacheDirectory);
 });
 
-gulp.task('push-gitlab', cb => {
-  git.removeRemote(gitLabRemote, gitLabOpts, () => {
-    git.addRemote(gitLabRemote, gitlabRepoUrl, gitLabOpts, () => {
-      git.push(gitLabRemote, masterBranch, gitLabOpts, cb);
-    });
-  });
-});
-
-gulp.task('push-github', cb => {
-  git.removeRemote(gitHubRemote, gitHubOpts, () => {
-    git.addRemote(gitHubRemote, githubRepoUrl, gitHubOpts, () => {
-      git.checkout(masterBranch, gitHubOpts, () => {
-        git.push(gitHubRemote, masterBranch, gitHubOpts, () => {
-          git.checkout(ghPagesBranch, gitHubOpts, () => {
-            git.merge(masterBranch, gitHubOpts, () => {
-              git.push(gitHubRemote, ghPagesBranch, gitHubOpts, cb);
-            });
-          });
-        });
-      });
-    });
-  });
-});
-
-gulp.task('all-done', cb => {
-  console.log('All done...');
-  cb();
-});
-
-gulp.task('default', cb => {
+gulp.task('build', cb => {
   runSequence(
     'clean',
     'compress-css',
@@ -174,15 +146,12 @@ gulp.task('default', cb => {
     cb);
 });
 
-gulp.task('build-and-sync', cb => {
+gulp.task('build-deploy-and-tag', cb => {
   runSequence(
-    'default',
+    'build',
+    'deploy-to-github',
     'tag-gitlab',
-    'push-gitlab',
-    'deploy',
     'tag-github',
-    'push-github',
-    'all-done',
     cb
   );
 });

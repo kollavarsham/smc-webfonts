@@ -11,7 +11,8 @@ pages:
   - git config --global user.email "info@kollavarsham.org"
   - npm install gulp -g
   - yarn
-  - gulp build-and-sync
+  - gulp build-deploy-and-tag
+  - ./deploy.sh
   - mkdir public
   - mv dist/* public
   artifacts:
