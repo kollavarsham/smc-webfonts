@@ -14,7 +14,7 @@ PACKAGE_VERSION=$(cat package.json \
 git remote remove gitlab > /dev/null 2>&1
 git remote add gitlab ${GITLAB_URL} > /dev/null 2>&1
 git checkout master
-git merge --ff-only --no-commit "v${PACKAGE_VERSION}"
+git merge "v${PACKAGE_VERSION}" -m "Merge tag 'v${PACKAGE_VERSION}' [ci skip]"
 git push --follow-tags gitlab master > /dev/null 2>&1
 
 # Add remote merge and push to the GitHub repo
