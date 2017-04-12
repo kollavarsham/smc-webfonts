@@ -145,7 +145,7 @@
 
       // update the usage
       const usageElement = document.querySelector('#usage');
-      usageElement.innerText = '<!-- HTML (within the HEAD element) -->\n<link rel="stylesheet" href="https://cdn.jsdelivr.net/smc-webfonts/0.0.1/fonts/' + f.font.cssFileName + '.min.css">\n\n/* CSS */\n.your-style {\n  font-family : \'' + f.font.fontFamily + '\';\n  font-weight : ' + f.font.fontWeight + ';\n  font-style  : normal;\n}';
+      usageElement.innerText = '<!-- HTML (within the HEAD element) -->\n<link rel="stylesheet" href="https://cdn.jsdelivr.net/smc-webfonts/latest/fonts/' + f.font.cssFileName + '.min.css">\n\n/* CSS */\n.your-style {\n  font-family : \'' + f.font.fontFamily + '\';\n  font-weight : ' + f.font.fontWeight + ';\n  font-style  : normal;\n}';
 
       // set hash
       window.location.hash = '#' + f.properName;
