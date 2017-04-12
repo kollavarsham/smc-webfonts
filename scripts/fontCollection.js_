@@ -87,7 +87,18 @@ const fontCollection = [
   }
 ];
 
+if (typeof firstBy === 'undefined') {
+  firstBy = function () {
+    return {
+      thenBy : function () {
+        return 0
+      }
+    };
+  }
+}
+
 const fonts = fontCollection
+  .sort(firstBy('fontFamily').thenBy('fontWeight'))
   .map(f => {
     const name = f.fontFamily + ' (' + f.fontWeight + ')';
     return {
@@ -98,4 +109,4 @@ const fonts = fontCollection
     };
   });
 
-/* eslint-disable */
+/* eslint-enable */
