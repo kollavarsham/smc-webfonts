@@ -30,6 +30,9 @@ const gitHubRemote = 'github';
 const masterBranch = 'master';
 const ghPagesBranch = 'gh-pages';
 
+const gitLabOpts = {cwd : currentDirectory, quiet : true};
+const gitHubOpts = {cwd : githubCacheDirectory, quiet : true};
+
 // clean the 'dist' dir
 gulp.task('clean', () => {
   return gulp.src([distDirectory, githubCacheDirectory])
@@ -134,23 +137,21 @@ gulp.task('tag-github', () => {
 });
 
 gulp.task('push-gitlab', cb => {
-  let opts = {cwd : currentDirectory, quiet : true};
-  git.removeRemote(gitLabRemote, opts, () => {
-    git.addRemote(gitLabRemote, gitlabRepoUrl, opts, () => {
-      git.push(gitLabRemote, masterBranch, opts, cb);
+  git.removeRemote(gitLabRemote, gitLabOpts, () => {
+    git.addRemote(gitLabRemote, gitlabRepoUrl, gitLabOpts, () => {
+      git.push(gitLabRemote, masterBranch, gitLabOpts, cb);
     });
   });
 });
 
 gulp.task('push-github', cb => {
-  let opts = {cwd : githubCacheDirectory, quiet : true};
-  git.removeRemote(gitHubRemote, opts, () => {
-    git.addRemote(gitHubRemote, githubRepoUrl, opts, () => {
-      git.checkout(masterBranch, opts, () => {
-        git.push(gitHubRemote, masterBranch, opts, () => {
-          git.checkout(ghPagesBranch, opts, () => {
-            git.merge(masterBranch, opts, () => {
-              git.push(gitHubRemote, ghPagesBranch, opts, cb);
+  git.removeRemote(gitHubRemote, gitHubOpts, () => {
+    git.addRemote(gitHubRemote, githubRepoUrl, gitHubOpts, () => {
+      git.checkout(masterBranch, gitHubOpts, () => {
+        git.push(gitHubRemote, masterBranch, gitHubOpts, () => {
+          git.checkout(ghPagesBranch, gitHubOpts, () => {
+            git.merge(masterBranch, gitHubOpts, () => {
+              git.push(gitHubRemote, ghPagesBranch, gitHubOpts, cb);
             });
           });
         });
