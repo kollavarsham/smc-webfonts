@@ -133,19 +133,19 @@ gulp.task('tag-github', () => {
 });
 
 gulp.task('push-gitlab', cb => {
-  git.removeRemote(gitLabRemote, {cwd : currentDirectory}, () => {
-    git.addRemote(gitLabRemote, gitlabRepoUrl, {cwd : currentDirectory}, () => {
-      git.push(gitLabRemote, masterBranch, {cwd : currentDirectory}, () => cb());
+  git.removeRemote(gitLabRemote, {cwd : currentDirectory, quiet: true}, () => {
+    git.addRemote(gitLabRemote, gitlabRepoUrl, {cwd : currentDirectory, quiet: true}, () => {
+      git.push(gitLabRemote, masterBranch, {cwd : currentDirectory}, cb);
     });
   });
 });
 
 gulp.task('push-github', cb => {
-  git.removeRemote(gitHubRemote, {cwd : githubCacheDirectory}, () => {
-    git.addRemote(gitHubRemote, githubRepoUrl, {cwd : githubCacheDirectory}, () => {
+  git.removeRemote(gitHubRemote, {cwd : githubCacheDirectory, quiet: true}, () => {
+    git.addRemote(gitHubRemote, githubRepoUrl, {cwd : githubCacheDirectory, quiet: true}, () => {
       git.checkout('gh-pages', {cwd : githubCacheDirectory}, () => {
         git.merge(masterBranch, {cwd : githubCacheDirectory}, () => {
-          git.push(gitHubRemote, '--all', {cwd : githubCacheDirectory}, () => cb());
+          git.push(gitHubRemote, '--all', {cwd : githubCacheDirectory}, cb);
         });
       });
     });
