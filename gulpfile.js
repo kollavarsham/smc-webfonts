@@ -37,7 +37,7 @@ gulp.task('clean', () => {
 
 // merge fontCollection into bookmarklet
 gulp.task('weave-fonts-into-bookmarklet', () => {
-  return gulp.src(['scripts/fontCollection.js_', 'scripts/bookmarklet.js_'])
+  return gulp.src(['scripts/fontsVariable.js_', 'scripts/fontCollection.js_', 'scripts/bookmarklet.js_'])
     .pipe(concat('bookmarklet.js'))
     .pipe(print(file => `created: ${file}`))
     .pipe(gulp.dest('scripts'));
@@ -45,7 +45,7 @@ gulp.task('weave-fonts-into-bookmarklet', () => {
 
 // merge fontCollection into script
 gulp.task('weave-fonts-into-script', () => {
-  return gulp.src(['scripts/fontCollection.js_', 'scripts/script.js_'])
+  return gulp.src(['scripts/fontsVariable.js_', 'scripts/fontCollection.js_', 'scripts/script.js_'])
     .pipe(concat('script.js'))
     .pipe(print(file => `created: ${file}`))
     .pipe(gulp.dest('scripts'));
@@ -83,20 +83,10 @@ gulp.task('compress-js', ['build-js'], (cb) => {
 
 // concat all the individual fonts' css into one
 gulp.task('build-css', (cb) => {
+  const fonts = eval(fs.readFileSync('scripts/fontCollection.js_', 'utf8') + '');
+  const fontStyleSheets = [...new Set(fonts.map(f => `fonts/${f.font.cssFileName}.css`))];
   pump([
-    gulp.src([
-      'fonts/anjali.css',
-      'fonts/chilanka.css',
-      'fonts/dyuthi.css',
-      'fonts/karumbi.css',
-      'fonts/keraleeyam.css',
-      'fonts/manjari.css',
-      'fonts/meera.css',
-      'fonts/rachana.css',
-      'fonts/raghumalayalam.css',
-      'fonts/suruma.css',
-      'fonts/uroob.css'
-    ]),
+    gulp.src(fontStyleSheets),
     print(file => `built: ${file}`),
     rework(url(url => `fonts/${url}`)),
     concat('smc-webfonts.css'),
