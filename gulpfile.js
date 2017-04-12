@@ -29,14 +29,6 @@ const gitHubRemote = 'github';
 
 const masterBranch = 'master';
 
-const tagRepo = function (cwd) {
-  return gulp.src('./package.json', {cwd : cwd})
-    .pipe(bump({type : 'patch'}))
-    .pipe(gulp.dest(cwd))
-    .pipe(git.commit('bumps package version [ci skip]', {cwd : cwd}))
-    .pipe(tagVersion({cwd : cwd}));
-};
-
 // clean the 'dist' dir
 gulp.task('clean', () => {
   return gulp.src([distDirectory, githubCacheDirectory])
@@ -115,8 +107,29 @@ gulp.task('publish', (cb) => {
   ], cb);
 });
 
+gulp.task('deploy', () => {
+  return gulp.src(`${distDirectory}/**/*`)
+    .pipe(ghPages({
+      remoteUrl : githubRepoUrl,
+      branch    : masterBranch,
+      cacheDir  : githubCacheDirectory
+    }));
+});
+
+const tagRepo = function (cwd) {
+  return gulp.src('./package.json', {cwd : cwd})
+    .pipe(bump({type : 'patch'}))
+    .pipe(gulp.dest(cwd))
+    .pipe(git.commit('bumps package version [ci skip]', {cwd : cwd}))
+    .pipe(tagVersion({cwd : cwd}));
+};
+
 gulp.task('tag-gitlab', () => {
   return tagRepo(currentDirectory);
+});
+
+gulp.task('tag-github', () => {
+  return tagRepo(githubCacheDirectory);
 });
 
 gulp.task('push-gitlab', cb => {
@@ -127,25 +140,13 @@ gulp.task('push-gitlab', cb => {
   });
 });
 
-gulp.task('deploy', cb => {
-  return gulp.src(`${distDirectory}/**/*`)
-    .pipe(ghPages({
-      remoteUrl : githubRepoUrl,
-      branch    : masterBranch,
-      cacheDir  : githubCacheDirectory
-    }))
-    .on('finish', () => cb());
-});
-
-gulp.task('tag-github', () => {
-  return tagRepo(githubCacheDirectory);
-});
-
 gulp.task('push-github', cb => {
   git.removeRemote(gitHubRemote, {cwd : githubCacheDirectory}, () => {
-    git.checkout('gh-pages', {cwd : githubCacheDirectory}, () => {
-      git.merge(masterBranch, {cwd : githubCacheDirectory}, () => {
-        git.push(gitHubRemote, '--all', {cwd : githubCacheDirectory}, () => cb());
+    git.addRemote(gitHubRemote, githubRepoUrl, {cwd : githubCacheDirectory}, () => {
+      git.checkout('gh-pages', {cwd : githubCacheDirectory}, () => {
+        git.merge(masterBranch, {cwd : githubCacheDirectory}, () => {
+          git.push(gitHubRemote, '--all', {cwd : githubCacheDirectory}, () => cb());
+        });
       });
     });
   });

@@ -62,7 +62,7 @@ typings/
 # Project specific
 dist/
 public/
-.publish/
+.github/
 smc-webfonts.css
 **/*.min.css
 script.es5.js
