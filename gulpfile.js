@@ -30,7 +30,8 @@ const masterBranch = 'master';
 
 // clean the 'dist' dir
 gulp.task('clean', () => {
-  return gulp.src([distDirectory, githubCacheDirectory])
+  return gulp.src([distDirectory, githubCacheDirectory, 'scripts/bookmarklet.js', 'scripts/script.js', 'scripts/*.es5.*', 'fonts/*.min.css', 'styles/*.min.css', 'smc-webfonts*.css'])
+    .pipe(print(file => `deleting: ${file}`))
     .pipe(vinylPaths(del));
 });
 
