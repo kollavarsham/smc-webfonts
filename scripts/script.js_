@@ -25,7 +25,7 @@
   closeSwitcher.onclick = () => switcher.style.display = 'none';
 
   fonts
-    .sort(firstBy('fontFamily').thenBy('fontWeight'))
+    .sort(firstBy('font.fontFamily').thenBy('font.fontWeight'))
     .forEach(function (f) {
       const fontElement = document.createElement('div');
       fontElement.id = f.urlReadyName + '-button';
