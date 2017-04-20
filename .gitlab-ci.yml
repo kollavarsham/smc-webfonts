@@ -13,7 +13,7 @@ pages:
   - yarn
   - gulp build-deploy-and-tag
   - ./deploy.sh
-  - mkdir public
+  - rm -rf public && mkdir -p public
   - mv dist/* public
   artifacts:
     paths:
