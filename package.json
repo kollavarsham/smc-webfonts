@@ -41,7 +41,7 @@
     "gulp-uglify": "^2.1.2",
     "pump": "^1.0.2",
     "rework-plugin-url": "^1.1.0",
-    "run-sequence": "^1.2.2",
+    "run-sequence": "^2.2.1",
     "vinyl-paths": "^2.1.0"
   }
 }
