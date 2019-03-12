@@ -10,7 +10,7 @@ pages:
   - git config --global user.name "SMC Webfonts Bot"
   - git config --global user.email "smc-webfonts@kollavarsham.org"
   - npm install gulp -g
-  - yarn
+  - npm install
   - gulp build-deploy-and-tag
   - ./deploy.sh
   - rm -rf public && mkdir -p public
