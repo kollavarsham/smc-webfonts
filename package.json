@@ -33,7 +33,7 @@
     "gulp-eslint": "^3.0.1",
     "gulp-gh-pages": "^0.5.4",
     "gulp-git": "^2.1.0",
-    "gulp-print": "^2.0.1",
+    "gulp-print": "^5.0.2",
     "gulp-rename": "^1.2.2",
     "gulp-rework": "^1.2.0",
     "gulp-string-replace": "^0.4.0",
