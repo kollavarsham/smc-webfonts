@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-env": "^7.10.4",
     "del": "^5.1.0",
     "eslint-friendly-formatter": "^4.0.1",
     "gulp": "^4.0.2",
